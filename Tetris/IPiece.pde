@@ -1,8 +1,8 @@
 public class IPiece extends Tetromino {
   IPiece(TetrisBoard t) {
     board = t;
-    row = 4;
-    col = 1;
+    row = 2;
+    col = 4;
     comx = 2;
     comy = 1;
     state = 0;

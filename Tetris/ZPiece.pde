@@ -1,9 +1,9 @@
 public class ZPiece extends Tetromino {
   ZPiece(TetrisBoard t) {
     board = t;
-    row = 4;
-    col = 1;
-    comx = 2;
+    row = 2;
+    col = 4;
+    comx = 1;
     comy = 1;
     state = 0;
     type = 0;

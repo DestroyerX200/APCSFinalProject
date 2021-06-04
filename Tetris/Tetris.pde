@@ -8,11 +8,11 @@ void setup() {
 void draw() {
   board.displayBoard();
   board.displayPiece();
+  board.displayPreview();
   board.clear();
 }
 
 void keyPressed() {
-  println(keyCode);
   if (keyCode == LEFT) {
     board.currentPiece.moveLeft();
   }

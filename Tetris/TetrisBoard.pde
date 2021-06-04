@@ -88,8 +88,27 @@ public class TetrisBoard {
         lines.add(r);
       }
     }
-   while (lines.size() > 0) {
-     clear(lines.remove(0));
-   }
+    while (lines.size() > 0) {
+      clear(lines.remove(0));
+    }
+  }
+  public void displayPreview() {
+    color colour = currentPiece.COLOR;
+    float red = red(colour);
+    float green = green(colour);
+    float blue = blue(colour);
+    colour = color(red, green, blue, 50);
+    int bottomRow = currentPiece.getBottomRow();
+    int column = currentPiece.col;
+    int[][] pieceData = currentPiece.arrayData();
+    for(int r = 0; r < pieceData.length; r++) {
+      for(int c = 0; c < pieceData[0].length; c++) {
+        if (pieceData[r][c] != 0) {
+          float row = bottomRow - currentPiece.comx + r;
+          float col = currentPiece.col - currentPiece.comy + c;
+          fillSquare(row, col, colour);
+        }
+      }
+    }
   }
 }

@@ -1,10 +1,10 @@
 public class OPiece extends Tetromino {
   OPiece(TetrisBoard t) {
     board = t;
-    row = 4;
-    col = 1;
-    comx = 2;
-    comy = 1;
+    row = 2;
+    col = 4;
+    comx = 1;
+    comy = 0;
     state = 0;
     type = 0;
     COLOR = #FCFC19;
