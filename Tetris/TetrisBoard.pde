@@ -1,10 +1,11 @@
 import java.util.*;
 public class TetrisBoard {
-  int[][] grid = new int[10][20];
-  Queue<List<Tetromino>> pieces;
-  Tetromino heldPiece;
-  List<Tetromino> nextPieces;
-  int score;
+  private int[][] grid = new int[10][20];
+  private Queue<List<Tetromino>> pieces;
+  private Tetromino currentPiece;
+  private Tetromino heldPiece;
+  private List<Tetromino> nextPieces;
+  public int score, currentRow, currentCol;
 
   TetrisBoard() { 
   }
@@ -17,6 +18,16 @@ public class TetrisBoard {
     stroke(255);
     noFill();
     rect(250, 0, 300, 600);
+  }
+  public void displayPiece() {
+    int[][] pieceData = currentPiece.arrayData();
+    for(int r = 0; r < pieceData.length; r++) {
+      for(int c = 0; c < pieceData[0].length; c++) {
+        float row = currentRow - r;
+        float col = currentCol - c;
+        fillSquare(row, col, currentPiece.COLOR);
+      }
+    }
   }
   public void fillSquare(float row, float col, int c) {
     if (c == 0) {
