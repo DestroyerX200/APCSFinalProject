@@ -41,7 +41,6 @@ public class TetrisBoard {
           int rowi = currentPiece.row - currentPiece.comx + r;
           int coli = currentPiece.col - currentPiece.comy + c;
           grid[rowi][coli] = currentPiece.COLOR;
-          println(Arrays.deepToString(grid));
         }
       }
     }
@@ -65,5 +64,32 @@ public class TetrisBoard {
   }
   public void setCurrentPiece(Tetromino t) {
     currentPiece = t;
+  }
+  private void clear(int row) {
+    for (int r = row; r > 0; r--) {
+      for (int c = 0; c < grid[0].length; c++) {
+        grid[r][c] = grid[r-1][c];
+      }
+    }
+    for (int c = 0; c < grid[0].length; c++) {
+      grid[0][c] = 0;
+    }
+  }
+  public void clear() {
+    ArrayList<Integer> lines = new ArrayList(0);
+    for (int r = 0; r < grid.length; r++) {
+      boolean line = true;
+      for (int c = 0; c < grid[0].length; c++) {
+        if (grid[r][c] == 0) {
+          line = false;
+        }
+      }
+      if (line) {
+        lines.add(r);
+      }
+    }
+   while (lines.size() > 0) {
+     clear(lines.remove(0));
+   }
   }
 }

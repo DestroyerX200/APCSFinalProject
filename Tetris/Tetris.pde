@@ -8,6 +8,7 @@ void setup() {
 void draw() {
   board.displayBoard();
   board.displayPiece();
+  board.clear();
 }
 
 void keyPressed() {
