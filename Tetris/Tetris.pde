@@ -1,12 +1,11 @@
 import java.util.Arrays;
+TetrisBoard board = new TetrisBoard();
 void setup() { 
   size(800,800);
   background(0);
+  board.updatePieces();
 }
-TetrisBoard board = new TetrisBoard();
-Tetromino piece1 = new IPiece(board);
 void draw() {
-  board.setCurrentPiece(piece1);
   board.displayBoard();
   board.displayPiece();
 }
@@ -14,15 +13,17 @@ void draw() {
 void keyPressed() {
   println(keyCode);
   if (keyCode == LEFT) {
-    piece1.moveLeft();
+    board.currentPiece.moveLeft();
   }
   if (keyCode == RIGHT) {
-    piece1.moveRight(); 
+    board.currentPiece.moveRight(); 
   }
   if (keyCode == 32) {
-    piece1.placeNow();
+    board.currentPiece.placeNow();
+    board.updateBoard();
+    board.updatePieces();
   }
   if (keyCode == UP) {
-    piece1.rotateClockwise();
+    board.currentPiece.rotateClockwise();
   }
 }

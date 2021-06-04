@@ -17,6 +17,7 @@ public abstract class Tetromino {
     col--;
   }
   //public void moveDown();
+
   public void placeNow() {
     int[][] pieceData = arrayData();
     boolean canMoveDown = true;

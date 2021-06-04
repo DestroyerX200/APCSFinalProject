@@ -7,17 +7,44 @@ public class TetrisBoard {
   private List<Tetromino> nextPieces;
   public int score;
 
-  TetrisBoard() { 
+  TetrisBoard() {
+    Random rng = new Random(1);
+    nextPieces = new ArrayList<Tetromino>(1000);
+    for (int i = 0; i < 1000; i++) {
+      int type = abs(rng.nextInt() % 7);
+      Tetromino piece = numToPiece(type);
+      nextPieces.add(piece);
+    }
+  }
+  public Tetromino numToPiece(int num) {
+    Tetromino[] types = new Tetromino[] {new IPiece(this), new JPiece(this), new LPiece(this), new OPiece(this), new SPiece(this), new TPiece(this), new ZPiece(this)};
+    return types[num];
+  }
+  public void updatePieces() {
+    currentPiece = nextPieces.remove(0);
   }
   public void displayBoard() {
     for (int r = 0; r < 20; r++) {
       for (int c = 0; c < grid[0].length; c++) {
-        fillSquare(r, c, 0);  
+        fillSquare(r, c, grid[r][c]);  
       }
     }
     stroke(255);
     noFill();
     rect(250, 0, 300, 600);
+  }
+  public void updateBoard() {
+    int[][] pieceData = currentPiece.arrayData();
+    for(int r = 0; r < pieceData.length; r++) {
+      for(int c = 0; c < pieceData[0].length; c++) {
+        if (pieceData[r][c] != 0) {
+          int rowi = currentPiece.row - currentPiece.comx + r;
+          int coli = currentPiece.col - currentPiece.comy + c;
+          grid[rowi][coli] = currentPiece.COLOR;
+          println(Arrays.deepToString(grid));
+        }
+      }
+    }
   }
   public void displayPiece() {
     int[][] pieceData = currentPiece.arrayData();
