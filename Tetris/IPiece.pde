@@ -1,4 +1,4 @@
-public class IPiece extends Tetromino{
+public class IPiece extends Tetromino {
   IPiece() {
     comx = 2;
     comy = 1;
@@ -13,19 +13,19 @@ public class IPiece extends Tetromino{
                           {0, 0, 0, 0},
                           {0, 0, 0, 0}};
     }
-    if (state == 1) {
+    else if (state == 1) {
       return new int[][] {{0, 1, 0, 0},
                           {0, 1, 0, 0},
                           {0, 1, 0, 0},
                           {0, 1, 0, 0}};
     }
-    if (state == 2) {
+    else if (state == 2) {
       return new int[][] {{0, 0, 0, 0},
                           {0, 0, 0, 0},
                           {1, 1, 1, 1},
                           {0, 0, 0, 0}};
     }
-    if (state == 3) {
+    else {
       return new int[][] {{0, 0, 1, 0},
                           {0, 0, 1, 0},
                           {0, 0, 1, 0},

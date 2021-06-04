@@ -1,8 +1,8 @@
 import java.util.*;
 public class TetrisBoard {
-  private int[][] grid = new int[10][20];
+  private int[][] grid = new int[20][10];
   private Queue<List<Tetromino>> pieces;
-  private Tetromino currentPiece;
+  public Tetromino currentPiece;
   private Tetromino heldPiece;
   private List<Tetromino> nextPieces;
   public int score, currentRow, currentCol;
@@ -10,7 +10,7 @@ public class TetrisBoard {
   TetrisBoard() { 
   }
   public void displayBoard() {
-    for (int r = 0; r < grid.length; r++) {
+    for (int r = 0; r < 20; r++) {
       for (int c = 0; c < grid[0].length; c++) {
         fillSquare(r, c, 0);  
       }
@@ -23,9 +23,12 @@ public class TetrisBoard {
     int[][] pieceData = currentPiece.arrayData();
     for(int r = 0; r < pieceData.length; r++) {
       for(int c = 0; c < pieceData[0].length; c++) {
-        float row = currentRow - r;
-        float col = currentCol - c;
-        fillSquare(row, col, currentPiece.COLOR);
+        if (pieceData[r][c] != 0) {
+          float row = currentRow - currentPiece.comx + r;
+          println(row);
+          float col = currentCol - currentPiece.comy + c;
+          fillSquare(row, col, currentPiece.COLOR);
+        }
       }
     }
   }
@@ -34,6 +37,11 @@ public class TetrisBoard {
       stroke(255, 255, 255, 40);
     }
     fill(c);
-    rect(250+30*row, 30*col, 30, 30);
+    rect(250+30*col, 30*row, 30, 30);
+  }
+  public void setCurrentPiece(Tetromino t) {
+    currentPiece = t;
+    currentRow = 6;
+    currentCol = 4;
   }
 }
