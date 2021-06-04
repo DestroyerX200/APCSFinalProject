@@ -9,8 +9,14 @@ void draw() {
   board.setCurrentPiece(piece1);
   board.displayBoard();
   board.displayPiece();
-  
 }
 
 void keyPressed() {
+  println(keyCode);
+  if (keyCode == LEFT) {
+    board.currentPiece.moveLeft();
+  }
+  if (keyCode == RIGHT) {
+    board.currentPiece.moveRight(); 
+  }
 }
