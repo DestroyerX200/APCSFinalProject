@@ -1,5 +1,8 @@
 public class TPiece extends Tetromino {
-  TPiece() {
+  TPiece(TetrisBoard t) {
+    board = t;
+    row = 4;
+    col = 1;
     comx = 2;
     comy = 1;
     state = 0;

@@ -25,7 +25,6 @@ public class TetrisBoard {
       for(int c = 0; c < pieceData[0].length; c++) {
         if (pieceData[r][c] != 0) {
           float row = currentPiece.row - currentPiece.comx + r;
-          println(row);
           float col = currentPiece.col - currentPiece.comy + c;
           fillSquare(row, col, currentPiece.COLOR);
         }

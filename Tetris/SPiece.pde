@@ -1,5 +1,8 @@
 public class SPiece extends Tetromino {
-  SPiece() {
+  SPiece(TetrisBoard t) {
+    board = t;
+    row = 4;
+    col = 1;
     comx = 2;
     comy = 1;
     state = 0;

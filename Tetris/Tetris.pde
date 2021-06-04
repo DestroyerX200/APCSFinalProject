@@ -4,7 +4,7 @@ void setup() {
   background(0);
 }
 TetrisBoard board = new TetrisBoard();
-Tetromino piece1 = new IPiece();
+Tetromino piece1 = new IPiece(board);
 void draw() {
   board.setCurrentPiece(piece1);
   board.displayBoard();
@@ -14,9 +14,15 @@ void draw() {
 void keyPressed() {
   println(keyCode);
   if (keyCode == LEFT) {
-    board.currentPiece.moveLeft();
+    piece1.moveLeft();
   }
   if (keyCode == RIGHT) {
-    board.currentPiece.moveRight(); 
+    piece1.moveRight(); 
+  }
+  if (keyCode == 32) {
+    piece1.placeNow();
+  }
+  if (keyCode == UP) {
+    piece1.rotateClockwise();
   }
 }

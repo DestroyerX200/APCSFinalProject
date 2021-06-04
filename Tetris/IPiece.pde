@@ -1,5 +1,6 @@
 public class IPiece extends Tetromino {
-  IPiece() {
+  IPiece(TetrisBoard t) {
+    board = t;
     row = 4;
     col = 1;
     comx = 2;
