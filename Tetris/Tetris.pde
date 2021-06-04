@@ -3,8 +3,9 @@ void setup() {
   background(0);
 }
 
+TetrisBoard board = new TetrisBoard();
 void draw() {
-  
+  board.displayBoard();
 }
 
 void keyPressed() {
