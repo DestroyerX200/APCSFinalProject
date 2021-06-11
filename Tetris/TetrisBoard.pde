@@ -16,9 +16,22 @@ public class TetrisBoard {
       nextPieces.add(piece);
     }
   }
+  
   public Tetromino numToPiece(int num) {
     Tetromino[] types = new Tetromino[] {new IPiece(this), new JPiece(this), new LPiece(this), new OPiece(this), new SPiece(this), new TPiece(this), new ZPiece(this)};
     return types[num];
+  }
+  
+  public List<Tetromino> generateBag() {
+    List<Tetromino> bag = new ArrayList<Tetromino>(7);
+    int[] numbers = {0,1,2,3,4,5,6};
+    List<Integer> nums = Arrays.asList(numbers);
+    Collections.shuffle(nums);
+    for (Integer n: nums) {
+      bag.add(numToPiece(n));
+    }
+    return bag;
+    
   }
   public void updatePieces() {
     currentPiece = nextPieces.remove(0);
