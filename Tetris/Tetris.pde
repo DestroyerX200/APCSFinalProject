@@ -27,4 +27,7 @@ void keyPressed() {
   if (keyCode == UP) {
     board.currentPiece.rotateClockwise();
   }
+  if (keyCode == DOWN) {
+    board.currentPiece.moveDown();
+  }
 }

@@ -8,7 +8,7 @@ public class TetrisBoard {
   public int score;
 
   TetrisBoard() {
-    Random rng = new Random(1);
+    Random rng = new Random();
     nextPieces = new ArrayList<Tetromino>(1000);
     for (int i = 0; i < 1000; i++) {
       int type = abs(rng.nextInt() % 7);

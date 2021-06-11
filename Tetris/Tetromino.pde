@@ -44,7 +44,24 @@ public abstract class Tetromino {
       col--;
     }
   }
-  //public void moveDown();
+  public void moveDown() {
+    boolean canMoveDown = true;
+    int[][] pieceData = arrayData();
+    for(int r = 0; r < pieceData.length; r++) {
+      for(int c = 0; c < pieceData[0].length; c++) {
+        if (pieceData[r][c] != 0) {
+          int rowi = row - comx + r;
+          int coli = col - comy + c;
+          if (rowi+1 == board.grid.length || board.grid[rowi+1][coli] != 0) {
+            canMoveDown = false;
+          }
+        }
+      }
+    }
+    if (canMoveDown) {
+      row++;
+    }
+  }
   private int getBottomRow() {
     int[][] pieceData = arrayData();
     boolean canMoveDown = true;
