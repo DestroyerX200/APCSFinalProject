@@ -1,19 +1,19 @@
 import java.util.*;
 public class TetrisBoard {
   private int[][] grid = new int[20][10];
-  private Queue<List<Tetromino>> pieces;
+  private List<Tetromino> pieces;
   public Tetromino currentPiece;
   private Tetromino heldPiece;
-  private List<Tetromino> nextPieces;
   public int score;
 
   TetrisBoard() {
-    Random rng = new Random();
-    nextPieces = new ArrayList<Tetromino>(1000);
-    for (int i = 0; i < 1000; i++) {
-      int type = abs(rng.nextInt() % 7);
-      Tetromino piece = numToPiece(type);
-      nextPieces.add(piece);
+    pieces = new ArrayList<Tetromino>();
+    addPieces();
+  }
+  
+  public void addPieces() {
+    for(Tetromino t: generateBag() ) {
+      pieces.add(t);
     }
   }
   
@@ -25,16 +25,20 @@ public class TetrisBoard {
   public List<Tetromino> generateBag() {
     List<Tetromino> bag = new ArrayList<Tetromino>(7);
     int[] numbers = {0,1,2,3,4,5,6};
-    List<Integer> nums = Arrays.asList(numbers);
+    
+    List<Integer> nums = new ArrayList<Integer>(numbers.length);
+    for (int i : numbers) {
+      nums.add(i);
+    }
     Collections.shuffle(nums);
     for (Integer n: nums) {
       bag.add(numToPiece(n));
     }
     return bag;
-    
   }
+  
   public void updatePieces() {
-    currentPiece = nextPieces.remove(0);
+    currentPiece = pieces.remove(0);
   }
   public void displayBoard() {
     for (int r = 0; r < 20; r++) {
