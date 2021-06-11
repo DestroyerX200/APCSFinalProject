@@ -5,9 +5,12 @@ public class TetrisBoard {
   public Tetromino currentPiece;
   private Tetromino heldPiece;
   public int score;
+  private int pieceNumber;
 
   TetrisBoard() {
+    pieceNumber = 0;
     pieces = new ArrayList<Tetromino>();
+    addPieces();
     addPieces();
   }
   
@@ -38,6 +41,11 @@ public class TetrisBoard {
   }
   
   public void updatePieces() {
+    pieceNumber++;
+    if (pieceNumber == 7) {
+      pieceNumber = 0;
+      addPieces();
+    }
     currentPiece = pieces.remove(0);
   }
   public void displayBoard() {

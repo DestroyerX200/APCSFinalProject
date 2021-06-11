@@ -16,7 +16,7 @@ public abstract class Tetromino {
         if (pieceData[r][c] != 0) {
           int rowi = row - comx + r;
           int coli = col - comy + c;
-          if (coli == board.grid[0].length-1 || board.grid[rowi][coli] != 0) {
+          if (coli == board.grid[0].length-1 || board.grid[rowi][coli+1] != 0) {
             canMoveRight = false;
           }
         }
