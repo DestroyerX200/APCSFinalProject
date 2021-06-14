@@ -13,6 +13,10 @@ void draw() {
   board.clear();
   board.updateTime();
   board.displayTime();
+  board.naturallyFall();
+  if (second() % 2 == 0) {
+    board.naturallyFall();
+  }
 }
 
 void keyPressed() {

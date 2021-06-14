@@ -1,7 +1,7 @@
 public class OPiece extends Tetromino {
   OPiece(TetrisBoard t) {
     board = t;
-    row = 2;
+    row = 1;
     col = 4;
     comx = 0;
     comy = 1;

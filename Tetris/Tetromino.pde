@@ -153,6 +153,15 @@ public abstract class Tetromino {
     row = getBottomRow();
     board.canHoldPiece = true;
   }
-  //public abstract void display();
+  public void fall() {
+    if (row == getBottomRow()) {
+      placeNow();
+      board.updateBoard();
+      board.nextPiece();
+    }
+    else {
+      moveDown();
+    }
+  }
   public abstract int[][] arrayData();
 }

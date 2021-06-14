@@ -1,7 +1,7 @@
 public class LPiece extends Tetromino {
   LPiece(TetrisBoard t) {
     board = t;
-    row = 2;
+    row = 1;
     col = 4;
     comx = 1;
     comy = 1;

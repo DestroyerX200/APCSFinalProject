@@ -9,7 +9,7 @@ public class TetrisBoard {
   private boolean canHoldPiece = true;
   private String MODE;
   public int time = millis();
-  private int naturalFallTime = second();
+  private boolean shouldFall = true;
 
   TetrisBoard() {
     pieceNumber = 0;
@@ -202,5 +202,14 @@ public class TetrisBoard {
     fill(255);
     text( (float) time / 1000.0, 300, 700);
     noFill();
+  }
+  public void naturallyFall() {
+    if (second() % 2 == 1 && shouldFall) {
+      currentPiece.fall();
+      shouldFall = false;
+    }
+    else if (second() % 2 == 0) {
+      shouldFall = true;
+    }
   }
 }
