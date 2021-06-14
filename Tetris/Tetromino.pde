@@ -5,8 +5,49 @@ public abstract class Tetromino {
   public int COLOR;
   
   public void rotateClockwise() {
+    int rightOffset = 0;
+    int leftOffset = 0;
+    int bottomOffset = 0;
     state++;
     state%=4;
+    int[][] pieceData = arrayData();
+    for(int r = 0; r < pieceData.length; r++) {
+      for(int c = 0; c < pieceData[0].length; c++) {
+        if (pieceData[r][c] != 0) {
+          int rowi = row - comx + r;
+          int coli = col - comy + c;
+          if (coli >= 10) {
+            leftOffset--;
+          }
+          else if (coli < 0) {
+            rightOffset++;
+          }
+          else if (board.grid[rowi][coli] != 0) {
+            if (col < coli) {
+              leftOffset--;
+            }
+            if (col > coli) {
+              rightOffset++;
+            }
+            if (row <= rowi) {
+              bottomOffset--;
+            }
+          }
+        }
+      }
+    }
+    if ( (leftOffset != 0 && bottomOffset != 0) || (rightOffset != 0 && bottomOffset != 0) ) {
+      state--;
+      if (state == -1) {
+        state = 3;
+      }
+    }
+    else {
+      println("Right Offset: " + rightOffset);
+      println("Left Offset: " + leftOffset);
+      col += rightOffset + leftOffset;
+      row += bottomOffset;
+    }
   }
   public void moveRight() {
     boolean canMoveRight = true;
