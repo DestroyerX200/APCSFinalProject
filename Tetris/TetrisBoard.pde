@@ -3,19 +3,23 @@ public class TetrisBoard {
   private int[][] grid = new int[20][10];
   private List<Tetromino> pieces;
   public Tetromino currentPiece;
-  private Tetromino heldPiece;
+  private int heldPiece;
   public int score;
   private int pieceNumber;
   private boolean canHoldPiece = true;
   private String MODE;
   public int time = millis();
+  private int naturalFallTime = second();
 
   TetrisBoard() {
     pieceNumber = 0;
     pieces = new ArrayList<Tetromino>();
     addPieces();
     addPieces();
+    heldPiece = -1;
   }
+  
+  
   
   public void addPieces() {
     for(Tetromino t: generateBag() ) {
@@ -172,22 +176,22 @@ public class TetrisBoard {
   }
   public void holdPiece() {
     if (canHoldPiece) {
-      if (heldPiece == null) {
-        heldPiece = currentPiece;
+      if (heldPiece == -1) {
+        heldPiece = pieceToNum(currentPiece);
         currentPiece = pieces.remove(0);
         canHoldPiece = false;
       }
       else {
-        Tetromino temp = heldPiece;
-        heldPiece = currentPiece;
-        currentPiece = temp;
+        int temp = heldPiece;
+        heldPiece = pieceToNum(currentPiece);
+        currentPiece = numToPiece(temp);
         canHoldPiece = false;
       }
     }
   }
   private void displayHeldPiece() {
-    if (heldPiece != null) {
-      displayPiece(heldPiece, 2, -4);
+    if (heldPiece != -1) {
+      displayPiece(numToPiece(heldPiece), 2, -4);
     }
   }
   public void updateTime() {
