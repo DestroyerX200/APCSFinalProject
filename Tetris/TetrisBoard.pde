@@ -25,6 +25,14 @@ public class TetrisBoard {
     return types[num];
   }
   
+  public int pieceToNum(Tetromino piece) {
+    ArrayList<Integer> pieceColors = new ArrayList<Integer>(7);
+    pieceColors.add(#1EF5F3); pieceColors.add(#1520E3);
+    pieceColors.add(#FFAB0D); pieceColors.add(#FCFC19);
+    pieceColors.add(#0DFF16); pieceColors.add(#B316ED);
+    pieceColors.add(#FF0D2D);
+    return pieceColors.indexOf(piece.COLOR);
+  } 
   public List<Tetromino> generateBag() {
     List<Tetromino> bag = new ArrayList<Tetromino>(7);
     int[] numbers = {0,1,2,3,4,5,6};
@@ -40,7 +48,7 @@ public class TetrisBoard {
     return bag;
   }
   
-  public void updatePieces() {
+  public void nextPiece() {
     pieceNumber++;
     if (pieceNumber == 7) {
       pieceNumber = 0;
@@ -49,6 +57,7 @@ public class TetrisBoard {
     currentPiece = pieces.remove(0);
   }
   public void displayBoard() {
+    background(0);
     for (int r = 0; r < 20; r++) {
       for (int c = 0; c < grid[0].length; c++) {
         fillSquare(r, c, grid[r][c]);  
@@ -57,6 +66,7 @@ public class TetrisBoard {
     stroke(255);
     noFill();
     rect(250, 0, 300, 600);
+    displayNextPieces(4);
   }
   public void updateBoard() {
     int[][] pieceData = currentPiece.arrayData();
@@ -70,7 +80,28 @@ public class TetrisBoard {
       }
     }
   }
-  public void displayPiece() {
+  
+  public void displayPiece(Tetromino piece, int row, int col) {
+    int[][] pieceData = piece.arrayData();
+    for(int r = 0; r < pieceData.length; r++) {
+      for(int c = 0; c < pieceData[0].length; c++) {
+        if (pieceData[r][c] != 0) {
+          float rowi = row - piece.comx + r;
+          float coli = col - piece.comy + c;
+          fillSquare(rowi, coli, piece.COLOR);
+        }
+      }
+    }
+  }
+  
+  public void displayNextPieces(int n) {
+    for (int i = 0; i < n; i++) {
+      Tetromino piece = pieces.get(i);
+      displayPiece(piece, 2+3*i, 13);
+    }
+  }
+  
+  public void displayCurrent() {
     int[][] pieceData = currentPiece.arrayData();
     for(int r = 0; r < pieceData.length; r++) {
       for(int c = 0; c < pieceData[0].length; c++) {
@@ -134,6 +165,22 @@ public class TetrisBoard {
           fillSquare(row, col, colour);
         }
       }
+    }
+  }
+  public void holdPiece() {
+    if (heldPiece == null) {
+      heldPiece = currentPiece;
+      currentPiece = pieces.remove(0);
+    }
+    else {
+      Tetromino temp = heldPiece;
+      heldPiece = currentPiece;
+      currentPiece = temp;
+    }
+  }
+  private void displayHeldPiece() {
+    if (heldPiece != null) {
+      displayPiece(heldPiece, 2, -4);
     }
   }
 }

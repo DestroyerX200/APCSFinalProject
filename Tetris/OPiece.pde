@@ -3,8 +3,8 @@ public class OPiece extends Tetromino {
     board = t;
     row = 2;
     col = 4;
-    comx = 1;
-    comy = 0;
+    comx = 0;
+    comy = 1;
     state = 0;
     type = 0;
     COLOR = #FCFC19;

@@ -3,12 +3,13 @@ TetrisBoard board = new TetrisBoard();
 void setup() { 
   size(800,800);
   background(0);
-  board.updatePieces();
+  board.nextPiece();
 }
 void draw() {
   board.displayBoard();
-  board.displayPiece();
+  board.displayCurrent();
   board.displayPreview();
+  board.displayHeldPiece();
   board.clear();
 }
 
@@ -19,10 +20,10 @@ void keyPressed() {
   if (keyCode == RIGHT) {
     board.currentPiece.moveRight(); 
   }
-  if (keyCode == 32) {
+  if (keyCode == 32) { //spacebar
     board.currentPiece.placeNow();
     board.updateBoard();
-    board.updatePieces();
+    board.nextPiece();
   }
   if (keyCode == UP) {
     board.currentPiece.rotateClockwise();
@@ -30,4 +31,8 @@ void keyPressed() {
   if (keyCode == DOWN) {
     board.currentPiece.moveDown();
   }
+  if (keyCode == 67) { // c
+    board.holdPiece();
+  }
+  println(keyCode);
 }
