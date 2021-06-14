@@ -7,6 +7,8 @@ public class TetrisBoard {
   public int score;
   private int pieceNumber;
   private boolean canHoldPiece = true;
+  private String MODE;
+  public int time = millis();
 
   TetrisBoard() {
     pieceNumber = 0;
@@ -187,5 +189,14 @@ public class TetrisBoard {
     if (heldPiece != null) {
       displayPiece(heldPiece, 2, -4);
     }
+  }
+  public void updateTime() {
+    time = millis();
+  }
+  public void displayTime() {
+    textSize(68);
+    fill(255);
+    text( (float) time / 1000.0, 300, 700);
+    noFill();
   }
 }
