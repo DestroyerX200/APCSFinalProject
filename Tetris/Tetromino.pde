@@ -43,10 +43,34 @@ public abstract class Tetromino {
       }
     }
     else {
-      println("Right Offset: " + rightOffset);
-      println("Left Offset: " + leftOffset);
       col += rightOffset + leftOffset;
       row += bottomOffset;
+      boolean isOkay = true;
+      for(int r = 0; r < pieceData.length; r++) {
+        for(int c = 0; c < pieceData[0].length; c++) {
+          if (pieceData[r][c] != 0) {
+            int rowi = row - comx + r;
+            int coli = col - comy + c;
+            if (coli < 0 || coli > 9) {
+              isOkay = false;
+            }
+            if (rowi > 19) {
+              isOkay = false;
+            }
+            if (board.grid[rowi][coli] != 0) {
+              isOkay = false;
+            }
+          }
+        }
+      }
+      if (!isOkay) {
+        state--;
+        if (state == -1) {
+          state = 3;
+        }
+        col -= (rightOffset + leftOffset);
+        row -= bottomOffset;
+      }
     }
   }
   public void moveRight() {

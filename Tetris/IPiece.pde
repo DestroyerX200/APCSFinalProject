@@ -3,7 +3,7 @@ public class IPiece extends Tetromino {
     board = t;
     row = 2;
     col = 4;
-    comx = 0;
+    comx = 1;
     comy = 1;
     state = 0;
     type = 0;
