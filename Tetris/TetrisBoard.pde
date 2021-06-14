@@ -6,6 +6,7 @@ public class TetrisBoard {
   private Tetromino heldPiece;
   public int score;
   private int pieceNumber;
+  private boolean canHoldPiece = true;
 
   TetrisBoard() {
     pieceNumber = 0;
@@ -168,14 +169,18 @@ public class TetrisBoard {
     }
   }
   public void holdPiece() {
-    if (heldPiece == null) {
-      heldPiece = currentPiece;
-      currentPiece = pieces.remove(0);
-    }
-    else {
-      Tetromino temp = heldPiece;
-      heldPiece = currentPiece;
-      currentPiece = temp;
+    if (canHoldPiece) {
+      if (heldPiece == null) {
+        heldPiece = currentPiece;
+        currentPiece = pieces.remove(0);
+        canHoldPiece = false;
+      }
+      else {
+        Tetromino temp = heldPiece;
+        heldPiece = currentPiece;
+        currentPiece = temp;
+        canHoldPiece = false;
+      }
     }
   }
   private void displayHeldPiece() {
