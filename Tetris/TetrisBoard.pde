@@ -4,12 +4,12 @@ public class TetrisBoard {
   private List<Tetromino> pieces;
   public Tetromino currentPiece;
   private int heldPiece;
-  public int score;
   private int pieceNumber;
   private boolean canHoldPiece = true;
   private String MODE;
   public int time = millis();
   private boolean shouldFall = true;
+  private int lines = 40;
 
   TetrisBoard() {
     pieceNumber = 0;
@@ -198,9 +198,9 @@ public class TetrisBoard {
     time = millis();
   }
   public void displayTime() {
-    textSize(68);
+    textSize(35);
     fill(255);
-    text( (float) time / 1000.0, 300, 700);
+    text( "Time: " + (float) time / 1000.0, 300, 650);
     noFill();
   }
   public void naturallyFall() {

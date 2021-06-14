@@ -4,7 +4,7 @@ public class OPiece extends Tetromino {
     row = 1;
     col = 4;
     comx = 0;
-    comy = 1;
+    comy = 0;
     state = 0;
     type = 0;
     COLOR = #FCFC19;
