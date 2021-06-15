@@ -272,7 +272,7 @@ public class TetrisBoard {
     rect(0, 0, 800, 800);
     fill(#12FF53);
     textSize(35);
-    text("Congratulations! You cleared " + MODE + " in " + (float) (time / 1000) + "seconds!", 200, 200, 400, 400);
+    text("Congratulations! You cleared " + MODE + " in " + (float) (time) / 1000 + "seconds!", 200, 200, 400, 400);
     fill(255);
     text("Thanks for playing!", 200, 400);
     text("Press R to play again.", 200, 450);
