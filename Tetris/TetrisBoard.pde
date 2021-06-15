@@ -7,18 +7,32 @@ public class TetrisBoard {
   private int pieceNumber;
   public boolean canHoldPiece = true;
   private String MODE; //10 Lines, 20 Lines, 40 Lines, 100 Lines, Score
-  private int score;
-  public int time = millis();
+  public int score;
+  public int startTime;
+  public int time;
   private boolean shouldFall = true;
-  private int numLines = 10;
+  private int numLines;
   public boolean LOST = false;
   TetrisBoard() {
-    MODE = "10 lines";
+    MODE = "Score";
     pieceNumber = 0;
     pieces = new ArrayList<Tetromino>();
     addPieces();
     addPieces();
     heldPiece = -1;
+    time = 0;
+    startTime = millis();
+  }
+  TetrisBoard(int l) {
+    MODE = l + " lines";
+    numLines = l;
+    pieceNumber = 0;
+    pieces = new ArrayList<Tetromino>();
+    addPieces();
+    addPieces();
+    heldPiece = -1;
+    time = 0;
+    startTime = millis();
   }
   
   private void addPieces() {
@@ -150,6 +164,7 @@ public class TetrisBoard {
     }
     numLines -= lines.size();
     while (lines.size() > 0) {
+      score += 1000;
       clear(lines.remove(0));
     }
   }
@@ -158,7 +173,7 @@ public class TetrisBoard {
     float red = red(colour);
     float green = green(colour);
     float blue = blue(colour);
-    colour = color(red, green, blue, 50);
+    colour = color(red, green, blue, 70);
     int bottomRow = currentPiece.getBottomRow();
     int column = currentPiece.col;
     int[][] pieceData = currentPiece.arrayData();
@@ -193,7 +208,7 @@ public class TetrisBoard {
     }
   }
   private void updateTime() {
-    time = millis();
+    time = millis() - startTime;
   }
   private void displayTime() {
     textSize(35);
@@ -216,24 +231,37 @@ public class TetrisBoard {
     text( "Lines Left: " + numLines, 300, 700);
     noFill();
   }
+  private void displayScore() {
+    textSize(35);
+    fill(255);
+    text( "Score: " + score, 300, 700);
+    noFill();
+  }
   
   public void display() {
+    background(0);
     if (LOST) {
+      board = null;
       displayGameOver();
     }
-    else if (numLines > 0) {
+    else {
       displayBoard();
       displayCurrent();
       displayPreview();
       displayHeldPiece();
       clear();
-      updateTime();
-      displayTime();
       naturallyFall();
       if (second() % 2 == 0) {
         naturallyFall();
       }
+    }
+    if (MODE.equals("Score") ) {
+      displayScore();      
+    }
+    else if (numLines > 0) {
       displayLines();
+      updateTime();
+      displayTime();
     }
     else {
       displayVictoryScreen();
@@ -242,29 +270,25 @@ public class TetrisBoard {
   private void displayVictoryScreen() {
     fill(0);
     rect(0, 0, 800, 800);
-    fill(#1EF5F3);
+    fill(#12FF53);
     textSize(35);
-    text("Congratulations!", 170, 200);
-    fill(#B316ED);
-    text(" You cleared ", 450, 200);
-    fill(#1520E3);
-    text(MODE, 170, 250);
-    fill(#FFAB0D);
-    text(" in ", 320, 250);
-    fill(#FCFC19);
-    text( (float) time / 100, 380, 250);
-    fill(#0DFF16);
-    text("seconds!", 510, 250);
+    text("Congratulations! You cleared " + MODE + " in " + (float) (time / 1000) + "seconds!", 200, 200, 400, 400);
     fill(255);
-    text("Thanks for playing!", 240, 300);
-    text("Press R to play again.", 220, 350);
+    text("Thanks for playing!", 200, 400);
+    text("Press R to play again.", 200, 450);
   }
   private void displayGameOver() {
     fill(0);
     rect(0, 0, 800, 800);
+    fill(#F70505);
+    textSize(50);
+    text("GAME OVER :<(", 100, 200);
+    fill(#12FF53);
+    if (MODE.equals("Score")) {
+      text("You got a score of " + score + "!", 100, 275);
+    }
     fill(255);
-    text("GAME OVER :<(", 250, 200);
-    text("Press R to play again.", 220, 350);
+    text("Press R to play again.", 100, 350);
   }
   public int getNumLines() {
     return numLines;

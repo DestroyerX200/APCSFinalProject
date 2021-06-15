@@ -4,39 +4,66 @@ void setup() {
   size(800, 800);
   background(0);
   displayMenu();
-  board.nextPiece();
 }
-//void draw() {
-//  board.display();
-//}
+void draw() {
+  if (board != null) {
+    board.display();
+  }
+}
 
 void keyPressed() {
-  if (keyCode == LEFT) {
-    board.currentPiece.moveLeft();
+  if (board != null) {
+    if (keyCode == LEFT) {
+      board.currentPiece.moveLeft();
+    }
+    if (keyCode == RIGHT) {
+      board.currentPiece.moveRight();
+    }
+    if (keyCode == 32) { //spacebar
+      board.currentPiece.placeNow();
+      board.updateBoard();
+      board.nextPiece();
+    }
+    if (keyCode == UP) {
+      board.currentPiece.rotateClockwise();
+    }
+    if (keyCode == DOWN) {
+      board.currentPiece.moveDown();
+    }
+    if (keyCode == 67) { // c
+      board.holdPiece();
+    }
   }
-  if (keyCode == RIGHT) {
-    board.currentPiece.moveRight();
-  }
-  if (keyCode == 32) { //spacebar
-    board.currentPiece.placeNow();
-    board.updateBoard();
+  println(keyCode);
+  if (keyCode == 49) {
+    board = new TetrisBoard(10);
     board.nextPiece();
   }
-  if (keyCode == UP) {
-    board.currentPiece.rotateClockwise();
+  if (keyCode == 50) {
+    board = new TetrisBoard(20);
+    board.nextPiece();
   }
-  if (keyCode == DOWN) {
-    board.currentPiece.moveDown();
+  if (keyCode == 51) {
+    board = new TetrisBoard(40);
+    board.nextPiece();
   }
-  if (keyCode == 67) { // c
-    board.holdPiece();
+  if (keyCode == 52) {
+    board = new TetrisBoard(100);
+    board.nextPiece();
   }
-  //if (keyCode == 82) {
-    
-  //}
+  if (keyCode == 53) {
+    board = new TetrisBoard();
+    board.nextPiece();
+  }
+  
+  if (keyCode == 82) {
+    board = null;
+    displayMenu();
+  }
 }
 
 void displayMenu() {
+  background(0);
   textSize(30);
   fill(#8826C6);
   text("Controls:", 100, 100);

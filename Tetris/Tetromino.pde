@@ -159,6 +159,7 @@ public abstract class Tetromino {
     return bottomRow;
   }
   public void placeNow() {
+    board.score += 100;
     int[][] pieceData = arrayData();
     for(int r = 0; r < pieceData.length; r++) {
       for(int c = 0; c < pieceData[0].length; c++) {
