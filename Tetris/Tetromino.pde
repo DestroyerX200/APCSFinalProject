@@ -40,10 +40,10 @@ public abstract class Tetromino {
         }
       }
     }
-    println("Left Offset: " + leftOffset);
-    println("Right Offset: " + rightOffset);
-    println("Top Offset: " + topOffset);
-    println("Bottom Offset: " + bottomOffset);
+    //println("Left Offset: " + leftOffset);
+    //println("Right Offset: " + rightOffset);
+    //println("Top Offset: " + topOffset);
+    //println("Bottom Offset: " + bottomOffset);
     
     if ( (leftOffset != 0 && bottomOffset != 0) || (rightOffset != 0 && bottomOffset != 0) ) {
       state--;

@@ -5,13 +5,15 @@ public class TetrisBoard {
   public Tetromino currentPiece;
   private int heldPiece;
   private int pieceNumber;
-  private boolean canHoldPiece = true;
+  public boolean canHoldPiece = true;
   private String MODE;
+  private int score;
   public int time = millis();
   private boolean shouldFall = true;
-  private int lines = 40;
+  private int numLines = 0;
 
   TetrisBoard() {
+    MODE = "10 lines";
     pieceNumber = 0;
     pieces = new ArrayList<Tetromino>();
     addPieces();
@@ -19,20 +21,18 @@ public class TetrisBoard {
     heldPiece = -1;
   }
   
-  
-  
-  public void addPieces() {
+  private void addPieces() {
     for(Tetromino t: generateBag() ) {
       pieces.add(t);
     }
   }
   
-  public Tetromino numToPiece(int num) {
+  private Tetromino numToPiece(int num) {
     Tetromino[] types = new Tetromino[] {new IPiece(this), new JPiece(this), new LPiece(this), new OPiece(this), new SPiece(this), new TPiece(this), new ZPiece(this)};
     return types[num];
   }
   
-  public int pieceToNum(Tetromino piece) {
+  private int pieceToNum(Tetromino piece) {
     ArrayList<Integer> pieceColors = new ArrayList<Integer>(7);
     pieceColors.add(#1EF5F3); pieceColors.add(#1520E3);
     pieceColors.add(#FFAB0D); pieceColors.add(#FCFC19);
@@ -40,7 +40,7 @@ public class TetrisBoard {
     pieceColors.add(#FF0D2D);
     return pieceColors.indexOf(piece.COLOR);
   } 
-  public List<Tetromino> generateBag() {
+  private List<Tetromino> generateBag() {
     List<Tetromino> bag = new ArrayList<Tetromino>(7);
     int[] numbers = {0,1,2,3,4,5,6};
     
@@ -63,7 +63,7 @@ public class TetrisBoard {
     }
     currentPiece = pieces.remove(0);
   }
-  public void displayBoard() {
+  private void displayBoard() {
     background(0);
     for (int r = 0; r < 20; r++) {
       for (int c = 0; c < grid[0].length; c++) {
@@ -88,7 +88,7 @@ public class TetrisBoard {
     }
   }
   
-  public void displayPiece(Tetromino piece, int row, int col) {
+  private void displayPiece(Tetromino piece, int row, int col) {
     int[][] pieceData = piece.arrayData();
     for(int r = 0; r < pieceData.length; r++) {
       for(int c = 0; c < pieceData[0].length; c++) {
@@ -101,14 +101,14 @@ public class TetrisBoard {
     }
   }
   
-  public void displayNextPieces(int n) {
+  private void displayNextPieces(int n) {
     for (int i = 0; i < n; i++) {
       Tetromino piece = pieces.get(i);
       displayPiece(piece, 2+3*i, 13);
     }
   }
   
-  public void displayCurrent() {
+  private void displayCurrent() {
     int[][] pieceData = currentPiece.arrayData();
     for(int r = 0; r < pieceData.length; r++) {
       for(int c = 0; c < pieceData[0].length; c++) {
@@ -120,13 +120,10 @@ public class TetrisBoard {
       }
     }
   }
-  public void fillSquare(float row, float col, int c) {
+  private void fillSquare(float row, float col, int c) { //helper method to color a square of the grid
     stroke(255, 255, 255, 40);
     fill(c);
     rect(250+30*col, 30*row, 30, 30);
-  }
-  public void setCurrentPiece(Tetromino t) {
-    currentPiece = t;
   }
   private void clear(int row) {
     for (int r = row; r > 0; r--) {
@@ -138,7 +135,7 @@ public class TetrisBoard {
       grid[0][c] = 0;
     }
   }
-  public void clear() {
+  private void clear() {
     ArrayList<Integer> lines = new ArrayList(0);
     for (int r = 0; r < grid.length; r++) {
       boolean line = true;
@@ -151,11 +148,12 @@ public class TetrisBoard {
         lines.add(r);
       }
     }
+    numLines -= lines.size();
     while (lines.size() > 0) {
       clear(lines.remove(0));
     }
   }
-  public void displayPreview() {
+  private void displayPreview() {
     color colour = currentPiece.COLOR;
     float red = red(colour);
     float green = green(colour);
@@ -194,16 +192,16 @@ public class TetrisBoard {
       displayPiece(numToPiece(heldPiece), 2, -4);
     }
   }
-  public void updateTime() {
+  private void updateTime() {
     time = millis();
   }
-  public void displayTime() {
+  private void displayTime() {
     textSize(35);
     fill(255);
     text( "Time: " + (float) time / 1000.0, 300, 650);
     noFill();
   }
-  public void naturallyFall() {
+  private void naturallyFall() {
     if (second() % 2 == 1 && shouldFall) {
       currentPiece.fall();
       shouldFall = false;
@@ -211,5 +209,51 @@ public class TetrisBoard {
     else if (second() % 2 == 0) {
       shouldFall = true;
     }
+  }
+  private void displayLines() {
+    textSize(35);
+    fill(255);
+    text( "Lines Left: " + numLines, 300, 700);
+    noFill();
+  }
+  
+  public void display() {
+    if (numLines > 0) {
+      displayBoard();
+      displayCurrent();
+      displayPreview();
+      displayHeldPiece();
+      clear();
+      updateTime();
+      displayTime();
+      naturallyFall();
+      if (second() % 2 == 0) {
+        naturallyFall();
+      }
+      displayLines();
+    }
+    else {
+      displayVictoryScreen();
+    }
+  }
+  private void displayVictoryScreen() {
+    fill(0);
+    rect(0, 0, 800, 800);
+    fill(#1EF5F3);
+    textSize(35);
+    text("Congratulations!", 170, 200);
+    fill(#B316ED);
+    text(" You cleared ", 450, 200);
+    fill(#1520E3);
+    text(MODE, 170, 250);
+    fill(#FFAB0D);
+    text(" in ", 320, 250);
+    fill(#FCFC19);
+    text( (float) time / 100, 380, 250);
+    fill(#0DFF16);
+    text("seconds!", 510, 250);
+  }
+  public int getNumLines() {
+    return numLines;
   }
 }

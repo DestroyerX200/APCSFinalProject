@@ -6,17 +6,7 @@ void setup() {
   board.nextPiece();
 }
 void draw() {
-  board.displayBoard();
-  board.displayCurrent();
-  board.displayPreview();
-  board.displayHeldPiece();
-  board.clear();
-  board.updateTime();
-  board.displayTime();
-  board.naturallyFall();
-  if (second() % 2 == 0) {
-    board.naturallyFall();
-  }
+  board.display();
 }
 
 void keyPressed() {
