@@ -10,8 +10,8 @@ public class TetrisBoard {
   private int score;
   public int time = millis();
   private boolean shouldFall = true;
-  private int numLines = 0;
-
+  private int numLines = 10;
+  public boolean LOST = false;
   TetrisBoard() {
     MODE = "10 lines";
     pieceNumber = 0;
@@ -218,7 +218,10 @@ public class TetrisBoard {
   }
   
   public void display() {
-    if (numLines > 0) {
+    if (LOST) {
+      displayGameOver();
+    }
+    else if (numLines > 0) {
       displayBoard();
       displayCurrent();
       displayPreview();
@@ -252,6 +255,16 @@ public class TetrisBoard {
     text( (float) time / 100, 380, 250);
     fill(#0DFF16);
     text("seconds!", 510, 250);
+    fill(255);
+    text("Thanks for playing!", 240, 300);
+    text("Press R to play again.", 220, 350);
+  }
+  private void displayGameOver() {
+    fill(0);
+    rect(0, 0, 800, 800);
+    fill(255);
+    text("GAME OVER :<(", 250, 200);
+    text("Press R to play again.", 220, 350);
   }
   public int getNumLines() {
     return numLines;

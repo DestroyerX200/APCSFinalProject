@@ -159,6 +159,18 @@ public abstract class Tetromino {
     return bottomRow;
   }
   public void placeNow() {
+    int[][] pieceData = arrayData();
+    for(int r = 0; r < pieceData.length; r++) {
+      for(int c = 0; c < pieceData[0].length; c++) {
+        if (pieceData[r][c] != 0) {
+          int rowi = row - comx + r;
+          int coli = col - comy + c;
+          if (board.grid[rowi][coli] != 0) {
+            board.LOST = true;
+          }
+        }
+      }
+    }
     row = getBottomRow();
     board.canHoldPiece = true;
   }

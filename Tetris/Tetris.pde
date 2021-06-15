@@ -30,4 +30,7 @@ void keyPressed() {
   if (keyCode == 67) { // c
     board.holdPiece();
   }
+  //if (keyCode == 82) {
+    
+  //}
 }
