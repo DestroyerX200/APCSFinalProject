@@ -6,7 +6,7 @@ public class TetrisBoard {
   private int heldPiece;
   private int pieceNumber;
   public boolean canHoldPiece = true;
-  private String MODE;
+  private String MODE; //10 Lines, 20 Lines, 40 Lines, 100 Lines, Score
   private int score;
   public int time = millis();
   private boolean shouldFall = true;
